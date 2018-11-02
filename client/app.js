@@ -1,4 +1,5 @@
 import "./styles/myapp.css";
+import Session  from "models/Session";
 import { JetApp, plugins } from "webix-jet";
 
 export default class MyApp extends JetApp {
@@ -11,15 +12,13 @@ export default class MyApp extends JetApp {
 		};
 
         super({ ...defaults, ...config });
-		// this.use(plugins.User, { model : session });
-		// this.use(plugins.Locale, { lang: "en" });
+		this.use(plugins.User, { model :  new Session() });
     }
 }
 
 if (!BUILD_AS_MODULE) {
 	var app = new MyApp();
 	webix.ready(() => {	
-		// app.use(plugins.Locale, { lang: "en" });
 		app.render();
 	});
 }

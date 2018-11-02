@@ -2,14 +2,14 @@
   "name": "webix-jet-app",
   "version": "1.1.0",
   "description": "Webix Jet App",
-  "main": "sources/myapp.js",
+  "main": "client/app.js",
   "scripts": {
-    "lint": "eslint sources/",
+    "lint": "eslint client/",
     "build": "webpack --env.production true",
     "module": "webpack --env.production true --env.module true",
     "standalone": "webpack --env.production true --env.module true --env.standalone true",
     "front": "webpack-dev-server --open --color",
-    "server": "node server.js",
+    "server": "node ./server/server.js",
     "start": "concurrently --kill-others-on-fail --names \"API_SERVER,WEBPACK\" -c \"blue.bold,magenta.bold\" \"npm run server\" \"npm run front\""
   },
   "keywords": [
@@ -40,7 +40,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
-    "sequelize": "^4.38.0",
+    "sequelize": "^4.41.0",
     "sqlite": "^3.0.0",
     "webix": "^6.0.5",
     "webix-jet": "^1.6.1"
