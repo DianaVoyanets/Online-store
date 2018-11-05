@@ -5,3 +5,20 @@
     font-size: 28px;
     width: 50px;
 }
+
+.native_html {
+    color: #1CA1C1;
+    border: none;
+    border-bottom: 1px solid #1CA1C1;
+    width: 171px !important;
+    height: 25px !important;
+}
+
+.webix_template .close_icon {
+    font-size: 23px;
+    border-width: 0;
+}
+
+.webix_template .close_icon:hover {
+    color: #1CA1C1;
+}

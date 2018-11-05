@@ -9,7 +9,9 @@ export default  class Header extends JetView {
                 {view: "label", label: "Hi,varyas!"},
                 {view: "button",value: "History",width: 200},
                 {view: "button",value: "Bag",width: 200},
-                {view: "button",value: "Logout",width: 200},
+                {view: "button",value: "Logout",width: 200,
+                    click: () => this.show('/logout')
+                },
             ]
         }
     }

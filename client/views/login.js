@@ -9,6 +9,7 @@ export default class loginPage extends JetView {
                     header: "Login",
                     body: {
                         view: "form",
+                        width: 400,
                         localId: "login:form",
                         elements: [
                             {
@@ -16,7 +17,7 @@ export default class loginPage extends JetView {
                                 name: "login",
                                 label: "Login:",
                                 labelWidth: 110,
-                                width: 350,
+                                width: 360,
                                 invalidMessage: "login can not be empty"
                             },
                             {
@@ -25,18 +26,33 @@ export default class loginPage extends JetView {
                                 type:"password",
                                 label: "Password:",
                                 labelWidth: 110,
-                                width: 350,
+                                width: 360,
                                 invalidMessage: "password can not be empty"
+                            },
+                            {
+                                view: "checkbox",
+                                label: "Remember me",
+                                labelWidth: 105
                             },
                             {
                                 rows: [
                                     {
-                                        view: "button",
-                                        value: "Login",
-                                        hotkey: "enter",
-                                        width: 100,
-                                        align: "right",
-                                        click: () => this.doLogin()
+                                        cols: [
+                                            {},
+                                            {
+                                                view: "button",
+                                                value: "Login",
+                                                hotkey: "enter",
+                                                width: 100,
+                                                align: "right",
+                                                click: () => this.doLogin()
+                                            },
+                                            // {
+                                            //     view: "template",
+                                            //     css: "native_html",
+                                            //     template: '<a>Forgot your password?</a>'
+                                            // }
+                                        ]
                                     }
                                 ],
                                 rules: {
@@ -57,27 +73,33 @@ export default class loginPage extends JetView {
 								view:"text", 
 								name:"login", 
 								label: "User Name:",
-								labelWidth:100,
-								width: 350,
+								labelWidth: 140,
+								width: 360,
 								invalidMessage: "Login can not be empty"
-							},
-							{ 
-								view:"text",
-								name:"password", 
-								label: "Password:", 
-								type:"password",
-								labelWidth:100,
-								width: 350,
-								invalidMessage: "Password can not be empty"
                             },
                             { 
 								view:"text",
 								name:"email", 
 								label: "Email:", 
-								labelWidth:100,
-								width: 350,
+								labelWidth: 140,
+								width: 360,
 								invalidMessage: "Incorrect email"
-							},
+                            },
+							{ 
+								view:"text",
+								name:"password", 
+								label: "Password:", 
+								type:"password",
+								labelWidth: 140,
+								width: 360,
+								invalidMessage: "The password confirmation doesn't match"
+                            },
+                            {
+                              view: "text",
+                              name: "confirm",
+                              label: "Confirm Password:",
+                              labelWidth: 140,
+                            },
 							{rows:[
 								{ 
 									view:"button",
@@ -91,8 +113,11 @@ export default class loginPage extends JetView {
 						],
                             rules:{
                                 login:webix.rules.isNotEmpty,
-                                password:webix.rules.isNotEmpty,
-                                email: webix.rules.isEmail
+                                email: webix.rules.isEmail,
+                                password: (valueFromPasswordInput) => {
+                                    let valueFromConfirmInput = this.$$("register:form").getValues().confirm;
+                                    return valueFromConfirmInput != valueFromPasswordInput ? false : true;
+                                }
                             }
                         }
                     }
@@ -119,7 +144,7 @@ export default class loginPage extends JetView {
 
         if(form.validate()) {
             const dataFromInputs = form.getValues();
-            user.login(dataFromInputs.login,dataFromInputs.password,dataFromInputs.email)
+            user.login(dataFromInputs.login,dataFromInputs.password)
             .catch(() => {
                 form.elements.password.focus();
                 webix.delay( () => {

@@ -1,12 +1,14 @@
+// import User from './User';
+
 export default class Session {
     status() {
         return webix.ajax().post("/server/login/status")
-                .then((res)=> res.json())
+            .then((res)=> res.json())
     }
 
     logout() {
-        return webix.ajax.post("server/user/logout")
-                .then((res) => res.json())
+        return webix.ajax().post("server/user/logout")
+            .then((res) => res.json())
     }
 
     login(login,password,email) {

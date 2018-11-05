@@ -27,5 +27,7 @@ app.post("/server/user/login",users.login);
 app.post("/server/login/status",users.loginStatus);
 app.get("/server/login/status",users.loginStatus);
 app.post("/server/user/register",users.registration);
+app.post("/server/user/logout",users.logout);
+app.put("/server/user/:userId",users.updateUser)
 
 app.listen(3000, () => console.log("Example app listening on port 3000"));

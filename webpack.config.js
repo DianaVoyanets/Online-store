@@ -44,7 +44,7 @@ module.exports = function(env) {
 		stats:"minimal",
 		resolve: {
 			extensions: [".js"],
-			modules: ["./client", "node_modules"],
+			modules: ["../client", "node_modules"],
 			alias:{
 				"jet-views":path.resolve(__dirname, "client/views"),
 				"jet-locales":path.resolve(__dirname, "client/locales")
