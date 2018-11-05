@@ -40,8 +40,16 @@ module.exports = {
 					db.User
 						.create(user)
 						.then(() => res.json({ message: "You are successfully registered!"}));
-				}
-			});
-	}
-    
-}
+				    }
+			    });
+	},
+
+    updateUser: (req,res) => {
+        console.log(req.params.userId);
+        db.User.findById(req.params.userId)
+            .then((user) => 
+                user.update(req.body))
+            .then(() => 
+                res.json({}));
+    }
+};
