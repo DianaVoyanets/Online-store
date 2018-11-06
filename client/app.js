@@ -16,14 +16,15 @@ export default class MyApp extends JetApp {
 			id 		: APPNAME,
 			version : VERSION,
 			debug 	: !PRODUCTION,
-			start 	: "/UserStartPage"
+			start 	: "/UserStartPage/productsDatatable"
 		};
 
         super({ ...defaults, ...config });
 		this.use(plugins.User, { model :  new Session() });
 
 		this.attachEvent('app:guard', (url, view, nav) => {
-			if(nav.url.length > 1) return;
+			// TODO 
+			if(nav.url.length > 1 && url !== "/UserStartPage/productsDatatable") return;
 			if (this.getService('user').getUser()) {
 				// TODO ROLE 
 				if (this.getService('user').getUser().login === 'admin') 
