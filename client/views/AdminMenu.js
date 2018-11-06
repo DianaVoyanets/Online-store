@@ -4,12 +4,17 @@ export default class MenuView extends JetView {
 	config() {
 		return {
 				view:"sidebar",
-				width: 300,
+				width: 350,
 				data:[
 					{ id:"ClientsInfo",value: "Clients Info"},
 					{ id:"Orders", value:"Orders"},
 					{ id:"AddNewProduct", value:"Add new product"},
-				]
+				],
+				ready: function() {
+					if(!this.getSelectedItem()) {
+						this.select("ClientsInfo");
+					}
+				}
 			};
 		}
 
@@ -18,4 +23,5 @@ export default class MenuView extends JetView {
 			id: sidebar
 		});
 	}
+
 }
