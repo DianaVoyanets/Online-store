@@ -14,9 +14,6 @@ export default class productsDatatable extends JetView {
                 { header:"Amount",width: 210, template: "<div>{common.counterButton()}</div>"},
                 { header: "Buy", template: '<span class="mdi mdi-cart basket"></span>',fillspace:true}
             ],
-            data: [
-                { id: 1, image:"image", name: "Lenovo K5", price: 380, rating: 68}
-            ],
             on: {
                 onItemDblClick: (selectedItem) => {
                     const item = this._getProductsDatatable().getItem(selectedItem.row);
