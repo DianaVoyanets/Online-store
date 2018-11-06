@@ -8,8 +8,9 @@ export default class TopView extends JetView {
 		return {
 			rows:[
 				Header,
-				{cols: [
-					Tree,productsDatatable
+				{cols:[
+					Tree,
+					{$subview: true}
 				],
 			}
 			]
