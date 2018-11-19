@@ -4,7 +4,9 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const { sequelize } = require("./db");
-sequelize.sync();
+sequelize.sync({
+	force: false
+});
 
 const app = express();
 
@@ -29,5 +31,15 @@ app.get("/server/login/status",users.loginStatus);
 app.post("/server/user/register",users.registration);
 app.post("/server/user/logout",users.logout);
 app.put("/server/user/:userId",users.updateUser)
+
+const products = require("../server/controllers/products");
+
+app.put("/server/product/:productId",products.updateData);
+app.delete("/server/product/:productId",products.removeData);
+app.post("/server/product",products.addData);
+app.get("/server/product",products.getData);
+
+const phoneBrand = require("../server/controllers/phoneBrand");
+app.get("/server/phoneBrand",phoneBrand.getData);
 
 app.listen(3000, () => console.log("Example app listening on port 3000"));
