@@ -30,7 +30,12 @@ module.exports = {
     },
     
     registration: (req,res) => {
-		const user = { login: req.body.user, password: req.body.password, email: req.body.email};
+        const user = { login: req.body.user, password: req.body.password, email: req.body.email};
+        if (user.login === 'admin') {
+            db.Role.findOne({where: {roleName: 'admin'}}).then((role) => user.roleId = role.id);
+        } else {
+            db.Role.findOne({where: {roleName: 'user'}}).then((role) => user.roleId = role.id);
+        }
 		db.User
 			.findAll({ where: user })
 			.then((u) => {
@@ -45,7 +50,6 @@ module.exports = {
 	},
 
     updateUser: (req,res) => {
-        console.log(req.params.userId);
         db.User.findById(req.params.userId)
             .then((user) => 
                 user.update(req.body))
