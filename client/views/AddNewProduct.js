@@ -41,7 +41,7 @@ export default class AddNewProduct extends JetView {
                 {
                     cols: [
                         {view: "spacer",width: 850},
-                        {view: "button",value: "Add new product",width: 300,click: () => this.addNewProduct()},
+                        {view: "button",value: "Add new product",width: 300, click: () => this.addNewProduct()},
                         {view: "spacer"},
                     ]
                 },
@@ -52,6 +52,7 @@ export default class AddNewProduct extends JetView {
 
     addNewProduct() {
         let itemFromFormInput = this.getRoot().getValues();
+        itemFromFormInput.rating = 0;
         Products.add(itemFromFormInput);
         this.getRoot().clear();
     }
