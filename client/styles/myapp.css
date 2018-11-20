@@ -5,7 +5,7 @@
     font-size: 28px;
     width: 50px;
 }
-
+/*TODO*/
 .native_html {
     color: #1CA1C1;
     border: none;
@@ -20,5 +20,30 @@
 }
 
 .webix_template .close_icon:hover {
+    color: #1CA1C1;
+}
+
+.information_about_phone {
+    display: flex;
+    justify-content: space-between;
+}
+
+.phone_information {
+    display: flex;
+    flex-direction: column;
+}
+
+/* .webix_view.close_window {
+    border-width: 0 !important;
+} */
+.close_window_icon{
+    border-width: 0 !important;
+}
+
+.mdi-star-half:hover {
+   color: orange;
+}
+
+.close_window_icon:hover {
     color: #1CA1C1;
 }
