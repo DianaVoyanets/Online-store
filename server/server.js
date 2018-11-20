@@ -42,4 +42,7 @@ app.get("/server/product",products.getData);
 const phoneBrand = require("../server/controllers/phoneBrand");
 app.get("/server/phoneBrand",phoneBrand.getData);
 
+const categoryProducts = require("../server/controllers/categories");
+app.get("/server/category",categoryProducts.getData);
+
 app.listen(3000, () => console.log("Example app listening on port 3000"));
