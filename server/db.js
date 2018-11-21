@@ -1,4 +1,9 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
+const UserModel = require("./models/user");
+const RoleModel = require('./models/role');
+const ProductsModel = require("./models/products");
+const phoneBrandModel = require("./models/phoneBrand");
+const categoryOfProductsModel = require("./models/categoryOfProducts");
 
 const sequelize = new Sequelize(
     "sampledb",
@@ -11,55 +16,34 @@ const sequelize = new Sequelize(
     }
 );
 
-const User = sequelize.define("user",{
-    login: Sequelize.STRING,
-    password: Sequelize.STRING,
-    email: Sequelize.STRING
-});
+const User = UserModel(sequelize, Sequelize);
+const Role = RoleModel(sequelize,Sequelize);
+const Products = ProductsModel(sequelize,Sequelize);
+const phoneBrand = phoneBrandModel(sequelize,Sequelize);
+const categoryOfProducts = categoryOfProductsModel(sequelize,Sequelize);
 
-const Role = sequelize.define("role",{
-    roleName: Sequelize.STRING
-});
+// categoryOfProducts.create({ categoryName: 'Phones'});
 
-const Products = sequelize.define('products',{
-    image: Sequelize.STRING,
-    productName: Sequelize.STRING,
-    price: Sequelize.DOUBLE,
-    rating: Sequelize.INTEGER
-});
+// Role.create({ roleName: 'admin'});
+// Role.create({ roleName: 'user'});
 
-const categoryOfProducts = sequelize.define('categoryOfProduct',{
-    categoryName: Sequelize.STRING
-});
-
-const phoneBrand = sequelize.define('phoneBrand',{
-    phone_brand: Sequelize.STRING
-});
-
-// phoneBrand.sync({force: true}).then(() => 
-    phoneBrand.create({ phone_brand: 'Xiaomi'}),
-// );
-
-// categoryOfProducts.sync({force: true}).then(() => {
-categoryOfProducts.create({ categoryName: 'Phones'});
+// Products.create({ 
+//     image: 'Very beatiful picture',
+//     productName: 'Samsung galaxy S6 Edge+12',
+//     price: 400,
+//     rating: 0
 // });
 
-Role.sync({force: true}).then(() => 
-   Role.create({ roleName: 'admin'}),
-   Role.create({ roleName: 'user'})
-);
-
-Products.sync({force: true}).then(() => {
-    return  Products.create({ 
-            image: 'Very beatiful picture',
-            productName: 'Samsung galaxy S6 Edge+12',
-            price: 400,
-            rating: 0
-        });
-});
+// phoneBrand.create({ phone_brand: 'Xiaomi',categoryId: 0});
 
 User.belongsTo(Role, {as: 'role'});
 phoneBrand.belongsTo(categoryOfProducts,{as: 'category'});
+
+sequelize.sync({ force: true})
+    .then(() => {
+        console.log(`Database & tables created!`);
+});
+
 
 module.exports = {
     sequelize,User, Role, Products, phoneBrand,categoryOfProducts
