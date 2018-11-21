@@ -171,8 +171,8 @@ export default class loginPage extends JetView {
 				})
 				.then( response => {
 					webix.message(response.json().message);
-				}).
-				fail((err) => {
+				})
+				.fail((err) => {
 					this.app.showError({message: JSON.parse(err.response).message});
 				});
 		}

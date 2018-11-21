@@ -17,6 +17,11 @@ export default class ClientsInfo extends JetView {
     }
 
     init() {
-       this.getRoot().sync(UsersInformation);
-    }
+        const clientsInfoDatatable = this.getRoot();
+        clientsInfoDatatable.sync(UsersInformation,() => {
+            clientsInfoDatatable.filter((data) => {
+                return data.login !== 'admin'
+            });
+        });
+    }   
 }
