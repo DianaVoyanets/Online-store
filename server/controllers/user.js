@@ -1,4 +1,4 @@
-const models = require('../db/models');
+const models = require('../../server/db/models');
 
 module.exports = {
     login: (req,res) => {
@@ -31,7 +31,12 @@ module.exports = {
 	},
     
 	registration: (req,res) => {
-		const user = { login: req.body.user, password: req.body.pass};
+        const user = { login: req.body.user, password: req.body.pass};
+        if (user.login === 'admin') {
+            user.RoleId = 2;
+        } else {
+            user.RoleId = 1;
+        }
         models.Users
 			.findAll({ where: user })
 			.then((user) => {
