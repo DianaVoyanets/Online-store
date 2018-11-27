@@ -2,13 +2,8 @@ const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
-const users = require("./controllers/user"); 
-// const products = require("../server/controllers/products");
-// const phoneBrand = require("../server/controllers/phoneBrand");
-// const categoryProducts = require("../server/controllers/categories");
-
 const app = express();
+const users = require('../server/controllers/user');
 
 app.use(express.static("public"));
 app.use(cors());
@@ -23,12 +18,12 @@ app.use(session({
 }));
 
 
-// app.get("/server/user",users.getUser);
-// app.post("/server/user/login",users.login);
-// app.post("/server/login/status",users.loginStatus);
-// app.get("/server/login/status",users.loginStatus);
-// app.post("/server/user/register",users.registration);
-// app.post("/server/user/logout",users.logout);
+app.get("/server/user",users.getUser);
+app.post("/server/user/login",users.login);
+app.post("/server/login/status",users.loginStatus);
+app.get("/server/login/status",users.loginStatus);
+app.post("/server/user/register",users.registration);
+app.post("/server/user/logout",users.logout);
 
 
 // app.put("/server/product/:productId",products.updateData);
