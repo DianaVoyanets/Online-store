@@ -2,7 +2,7 @@
 
 export default class Session {
     status() {
-        return webix.ajax().post("/server/login/status")
+        return webix.ajax().post("server/login/status")
             .then((res)=> res.json())
     }
 
