@@ -14,7 +14,7 @@ module.exports = {
       },
       {
           login: "admin",
-          password: "ADMIN",
+          password: "admin",
           email: "admin@gmail.com",
           RoleId: 2,
           createdAt: new Date(),
