@@ -11,7 +11,7 @@
     "front": "webpack-dev-server --open --color",
     "server": "node ./server/app.js",
     "db:migrate": "sequelize db:migrate",
-    "db:seed:all": "sequelize db:seed:all",
+    "db:seed": "sequelize db:seed:all",
     "start": "concurrently --kill-others-on-fail --names \"API_SERVER,WEBPACK\" -c \"blue.bold,magenta.bold\" \"npm run server\" \"npm run front\""
   },
   "keywords": [
