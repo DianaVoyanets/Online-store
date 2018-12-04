@@ -1,59 +1,52 @@
-const db = require("../db");
+const models = require('../../server/db/models');
 
 module.exports = {
     login: (req,res) => {
-        const user = {login: req.body.login, password: req.body.password}
-        db.User.findOne({where: user})
-        .then( (user) => {
-            if(user) {
-                req.session.user = user;
-                res.send(user);
-            } else {
-                res.send(null)
-            }
-        })
+        const user = {login: req.body.login,password: req.body.password};
+        models.Users
+            .findOne({where: user})
+            .then(user => {
+                if(user) {
+                    req.session.user = user;
+                    res.send(user);
+                } else {
+                    res.send(null);
+                }
+            })
     },
 
     getUser: (req,res) => {
-        db.User
+        models.Users
             .findAll()
             .then((user) => res.json(user));
     },
-    
+
     loginStatus: (req,res) => {
-        res.send(req.session.user || null)
+        res.send(req.session.user || null);
     },
 
-    logout: (req,res) => {
-        delete req.session.user;
-        res.send({});
-    },
+    logout: (req, res) => {
+		delete req.session.user;
+		res.send({});
+	},
     
-    registration: (req,res) => {
-        const user = { login: req.body.user, password: req.body.password, email: req.body.email};
+	registration: (req,res) => {
+        const user = { login: req.body.user, password: req.body.pass};
         if (user.login === 'admin') {
-            db.Role.findOne({where: {roleName: 'admin'}}).then((role) => user.roleId = role.id);
+            user.RoleId = 2;
         } else {
-            db.Role.findOne({where: {roleName: 'user'}}).then((role) => user.roleId = role.id);
+            user.RoleId = 1;
         }
-		db.User
+        models.Users
 			.findAll({ where: user })
-			.then((u) => {
-				if (u.length !== 0) {
+			.then((user) => {
+				if (user.length !== 0) {
 					res.json({ message: "The user with this login is already registered" });
 				} else {
-					db.User
+                    models.Users
 						.create(user)
 						.then(() => res.json({ message: "You are successfully registered!"}));
-				    }
-			    });
-	},
-
-    updateUser: (req,res) => {
-        db.User.findById(req.params.userId)
-            .then((user) => 
-                user.update(req.body))
-            .then(() => 
-                res.json({}));
-    }
-};
+				}
+			});
+	}
+}
