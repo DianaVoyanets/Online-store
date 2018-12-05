@@ -1,19 +1,21 @@
 import {JetView} from "webix-jet";
+import {Category} from "models/categoryCollection";
+
 webix.DataDriver.plainjs = webix.extend({
     arr2hash: function (data) {
         var hash = {};
         for (var i = 0; i < data.length; i++) {
-            var parentId = data[i].parent_id;
-            if(!parentId) {
-                parentId = 0;
+            var parentId = data[i].categoryId;
+            if(!categoryId) {
+                categoryId = 0;
             }
-            if (!hash[parentId]) {
-                if(!parentId) {
+            if (!hash[categoryId]) {
+                if(!categoryId) {
                     hash[0] = [];
                     hash[0].push(data[i]); 
                 } else {
-                    hash[parentId] = [];
-                    hash[parentId].push(data[i]);
+                    hash[categoryId] = [];
+                    hash[categoryId].push(data[i]);
                 }
             }
         }
@@ -42,17 +44,10 @@ export default class Tree extends JetView {
                     view:"tree", 
                     width: 300,
                     datatype: "plainjs",
-                    data: [
-                        {id: 1,value: 'Phone'},
-                        {id: 2,parent_id: 1,value: 'test'}
-                    ]
+                    template: (obj) => obj.categoryName,
+                    url: "/server/category?filter[include]=product"
                 }
-                ]
-            }
+            ]
         }
-
-    init() {
     }
-
-
 }

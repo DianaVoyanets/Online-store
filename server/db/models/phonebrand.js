@@ -1,11 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const PhoneBrand = sequelize.define('PhoneBrand', {
+  const PhoneBrands = sequelize.define('PhoneBrands', {
     markName: DataTypes.STRING
   });
 
-  PhoneBrand.associate = function(models) {
+  PhoneBrands.associate = function(models) {
 
   };
-  return PhoneBrand;
+  return PhoneBrands;
 };

@@ -1,6 +1,6 @@
 import {JetView} from "webix-jet";
 import {Products} from '../models/ProductsCollection';
-import {PhoneBrand} from '../models/phoneBrand';
+import {PhoneBrands} from '../models/PhoneBrandsCollection';
  
 export default class AddNewProduct extends JetView {
     config() {
@@ -34,7 +34,7 @@ export default class AddNewProduct extends JetView {
                     cols: [
                         {view: "spacer",width: 350},
                         // {view:"uploader",value:"Add picture"},
-                        {view: "combo", labelWidth: 100,localId: "test",label: "Phone brand",options:{body: {template: '#phone_brand#',data: PhoneBrand}}},
+                        {view: "combo", labelWidth: 100,label: "Phone brand",options:{body: {template: '#markName#',data: PhoneBrands}}},
                         {view: "spacer",width: 350}
                     ]
                 },
@@ -48,6 +48,10 @@ export default class AddNewProduct extends JetView {
                 {view: "spacer"}
             ]
         }
+    }
+
+    init() {
+        console.log(PhoneBrands);
     }
 
     addNewProduct() {

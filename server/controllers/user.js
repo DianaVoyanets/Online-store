@@ -3,6 +3,7 @@ const models = require('../../server/db/models');
 module.exports = {
     login: (req,res) => {
         const user = {login: req.body.login,password: req.body.password};
+        console.log(user);
         models.Users
             .findOne({where: user})
             .then(user => {
