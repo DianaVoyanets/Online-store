@@ -18,6 +18,15 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      categoryOfProductId: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        onDelete: "CASCADE",
+        references: {
+          model: 'categoryOfProducts',
+          key: 'id'
+        }
       }
     });
   },

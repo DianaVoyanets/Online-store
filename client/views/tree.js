@@ -2,37 +2,46 @@ import {JetView} from "webix-jet";
 import {Category} from "models/categoryCollection";
 
 webix.DataDriver.plainjs = webix.extend({
-    arr2hash: function (data) {
-        var hash = {};
-        for (var i = 0; i < data.length; i++) {
-            var parentId = data[i].categoryId;
-            if(!categoryId) {
-                categoryId = 0;
+    arrayToHash: function (data) {
+        let hash = {};
+
+        for (let i = 0; i < data.length; i++) {
+            let parentId = data[i].categoryOfProductId;
+
+            if(!parentId) {
+                parentId = 0;
+                data[i].categoryOfProductId  = null;
             }
-            if (!hash[categoryId]) {
-                if(!categoryId) {
-                    hash[0] = [];
-                    hash[0].push(data[i]); 
-                } else {
-                    hash[categoryId] = [];
-                    hash[categoryId].push(data[i]);
-                }
+
+            if (!hash[parentId]) {
+                hash[parentId] = [];
             }
+
+            hash[parentId].push(data[i]);
         }
+
         return hash;
     },
-    hash2tree: function (hash, level) {
-        var top = hash[level];
-        for (var i = 0; i < top.length; i++) {
-            var branch = top[i].id;
-            if (hash[branch])
-                top[i].data = this.hash2tree(hash, branch);
+    hashToTree: function (hash, level) {
+        let top = hash[level];
+        if (!top) return hash;
+
+        for (let i = 0; i < top.length; i++) {
+            let branch = top[i].id;
+            let phoneBrand = top[i].PhoneBrands;
+
+            if (phoneBrand && phoneBrand.length > 0) {
+                    top[i].data = phoneBrand;
+            }
+
+            top[i].data = (top[i].data || []).concat(this.hashToTree(hash, branch));
         }
+
         return top;
     },
     getRecords: function (data, id) {
-        var hash = this.arr2hash(data);
-        return this.hash2tree(hash, 0);
+        var hash = this.arrayToHash(data);
+        return this.hashToTree(hash, 0);
     }
 }, webix.DataDriver.json);
 
@@ -44,8 +53,11 @@ export default class Tree extends JetView {
                     view:"tree", 
                     width: 300,
                     datatype: "plainjs",
-                    template: (obj) => obj.categoryName,
-                    url: "/server/category?filter[include]=product"
+                    template: (obj,common) => {
+                        let name = (obj.categoryOfProductId) ? obj.markName : obj.categoryName
+                        return `${common.icon(obj,common)}${common.folder(obj, common)}<span>${name}</span>`
+                    },
+                    url: "/server/category"
                 }
             ]
         }

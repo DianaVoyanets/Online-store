@@ -6,6 +6,7 @@ module.exports = {
       [
         {
           markName: "Samsung",
+          categoryOfProductId: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         }

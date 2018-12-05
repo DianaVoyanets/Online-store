@@ -8,7 +8,6 @@ module.exports = {
           productName: "Samsung",
           price: 300.5,
           rating: 0,
-          categoryId: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         }

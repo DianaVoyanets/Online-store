@@ -6,7 +6,7 @@ import { JetApp, plugins } from "webix-jet";
 
 const PAGES = {
 	LOGIN: "/login",
-	USER_PAGE: '/UserUserStartPage',
+	USER_PAGE: '/UserStartPage',
 	ADMIN_PAGE: '/AdminStartPage'
 }
 

@@ -27,16 +27,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      categoryId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        onDelete: "CASCADE",
-        references: {
-          model: 'categoryOfProducts',
-          key: 'id'
-        }
-      },
+      }
     });
   },
   down: (queryInterface, Sequelize) => {

@@ -6,9 +6,5 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.DOUBLE,
     rating: DataTypes.INTEGER
   });
-
-  Products.associate = function(models) {
-      models.Products.belongsTo(models.categoryOfProducts, { as: 'category'});
-  };
   return Products;
 };

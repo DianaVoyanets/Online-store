@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   
   categoryOfProducts.associate = function(models) {
-    models.categoryOfProducts.hasMany(models.Products)
+    models.categoryOfProducts.hasMany(models.PhoneBrands)
   };
   return categoryOfProducts;
 };
