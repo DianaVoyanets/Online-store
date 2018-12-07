@@ -15,7 +15,7 @@ export default class productInfprmationPopup extends JetView {
                         view: "toolbar",
                         css: "window_toolbar",
                         cols: [
-                            {view:"label",localId: "product:name:label",label: "#name#", width: 450,align: "center"},
+                            {view:"label",localId: "product:name:label",label: "#value#", width: 450,align: "center"},
                             {
                                 localId: 'product:information:toolbar',
                                 css: 'close_window_icon',
@@ -30,7 +30,7 @@ export default class productInfprmationPopup extends JetView {
                         localId: "product:information:layout",
                         template: (obj) => `<div class="phone_information">
                                                 <div style="margin-left:0;margin-top: 50px">${obj.image}</div>
-                                                <div style="margin-left: 200px;margin-bottom: 30px"><b>Name:</b> ${obj.value}</div>
+                                                <div style="margin-left: 200px;margin-bottom: 30px"><b>Name:</b> ${obj.productName}</div>
                                                 <div style="margin-left: 200px;margin-bottom: 30px"><b>Price:</b> ${obj.price}</div>
                                                 <div style="margin-left: 200px"><b>Rating:</b> ${obj.rating} <span style="font-size: 19px"><i class="mdi mdi-star-half"></i></span></div>
                                             </div>`,
@@ -40,6 +40,7 @@ export default class productInfprmationPopup extends JetView {
                                 let dataFromProductsCollection = Products.getItem(selecteItemId);
                                 dataFromProductsCollection.rating++;
                                 Products.updateItem(this.datatable.getSelectedItem().id,dataFromProductsCollection);
+                                this.app.callEvent('datatableUpdate');
                             }
                         }
                     }
@@ -54,13 +55,9 @@ export default class productInfprmationPopup extends JetView {
 
     show(options) {
         this.datatable = options.getDatatable;
-        this.$$("product:name:label").setValue(options.row.value);
+        this.$$("product:name:label").setValue(options.row.productName);
         this.$$("product:information:layout").setValues(options.row);
         this.getRoot().show();
-    }
-
-    getDataFromDatatable() {
-        this.datatable
     }
 
     hide() {
