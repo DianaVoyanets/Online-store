@@ -2,13 +2,23 @@ import { JetView } from "webix-jet";
 import { treeData } from "models/treeCollection";
 
 
+
 export default class Tree extends JetView {
     config() {
+        this.fakeTreeData = [];
         return {
             rows:[
                 { 
-                    view:"tree", 
-                    width: 300
+                    view: "tree", 
+                    width: 300,
+                    select: true,
+                    on: {
+                        "onAfterSelect": (id) => {
+                            // TODO
+                            let selectedId = this.getRoot().queryView({view: 'tree'}).getItem(id)._id;
+                            this.app.callEvent('onAfterTreeItemSelect', [selectedId])
+                        }
+                    }
                 }
             ]
         }
