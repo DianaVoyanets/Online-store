@@ -8,6 +8,7 @@ const products = require('../server/controllers/products');
 const phoneBrand = require('../server/controllers/phoneBrand');
 const productsCategories = require('../server/controllers/productsCategories');
 const tree = require("../server/controllers/tree");
+const productsBasket = require("../server/controllers/productsBasket");
 
 app.use(express.static("public"));
 app.use(cors());
@@ -30,8 +31,8 @@ app.post("/server/user/register",users.registration);
 app.post("/server/user/logout",users.logout);
 
 //Products
-app.put("/server/wordsGroup/:productId",products.updateData);
-app.delete("/server/wordsGroup/:productId",products.removeData);
+app.put("/server/product/:productId",products.updateData);
+app.delete("/server/product/:productId",products.removeData);
 app.post("/server/product",products.addData);
 app.get("/server/product",products.getData);
 
@@ -41,7 +42,15 @@ app.get("/server/PhoneBrands",phoneBrand.getData)
 //productsCategories
 app.get("/server/category",productsCategories.getData);
 
+//getTree
 app.get("/server/tree", tree.getTree);
+
+//productsBasket
+app.put("/server/productsBasket/:productId",productsBasket.updateData);
+app.delete("/server/productsBasket/:productId",productsBasket.removeData);
+app.post("/server/productsBasket",productsBasket.addData);
+app.get("/server/productsBasket",productsBasket.getData);
+
 // app.put("/server/product/:productId",products.updateData);
 // app.delete("/server/product/:productId",products.removeData);
 // app.post("/server/product",products.addData);
