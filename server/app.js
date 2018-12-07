@@ -6,7 +6,8 @@ const app = express();
 const users = require('../server/controllers/user');
 const products = require('../server/controllers/products');
 const phoneBrand = require('../server/controllers/phoneBrand');
-const categoryOfProducts = require('../server/controllers/categoryOfProducts');
+const productsCategories = require('../server/controllers/productsCategories');
+const tree = require("../server/controllers/tree");
 
 app.use(express.static("public"));
 app.use(cors());
@@ -37,9 +38,10 @@ app.get("/server/product",products.getData);
 //PhoneBrandss
 app.get("/server/PhoneBrands",phoneBrand.getData)
 
-//categoryOfProducts
-app.get("/server/category",categoryOfProducts.getData);
+//productsCategories
+app.get("/server/category",productsCategories.getData);
 
+app.get("/server/tree", tree.getTree);
 // app.put("/server/product/:productId",products.updateData);
 // app.delete("/server/product/:productId",products.removeData);
 // app.post("/server/product",products.addData);
@@ -51,6 +53,4 @@ app.get("/server/category",categoryOfProducts.getData);
 
 // app.get("/server/category",categoryProducts.getData);
 
-const port = 3000;
-
-app.listen(port, () => console.log(`Example app listening on port ${port}`));
+app.listen(3000, () => console.log(`Example app listening on port ${3000}`));

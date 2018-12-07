@@ -11,7 +11,7 @@ export default class AddNewProduct extends JetView {
                 {
                     cols: [
                         {view: "spacer",width: 350},
-                        {view: "text",label: "Name:", labelWidth: 100,name: 'productName', required:true},
+                        {view: "text",label: "Name:", labelWidth: 100,name: 'value', required:true},
                         {view: "spacer",width: 350}
                     ]
                 },
@@ -34,7 +34,7 @@ export default class AddNewProduct extends JetView {
                     cols: [
                         {view: "spacer",width: 350},
                         // {view:"uploader",value:"Add picture"},
-                        {view: "combo", labelWidth: 100,label: "Phone brand",options:{body: {template: '#markName#',data: PhoneBrands}}},
+                        {view: "combo", labelWidth: 100,label: "Phone brand",options:{body: {template: '#value#',data: PhoneBrands}}},
                         {view: "spacer",width: 350}
                     ]
                 },

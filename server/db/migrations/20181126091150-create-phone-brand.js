@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      markName: {
+      brandName: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -19,12 +19,12 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      categoryOfProductId: {
+      productsCategoryId: {
         type: Sequelize.INTEGER,
-        allowNull: true,
         onDelete: "CASCADE",
+        allowNull: false,
         references: {
-          model: 'categoryOfProducts',
+          model: 'productsCategories',
           key: 'id'
         }
       }

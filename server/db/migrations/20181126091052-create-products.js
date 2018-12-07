@@ -27,6 +27,15 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      phoneBrandId: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        allowNull: true,
+        references: {
+          model: 'PhoneBrands',
+          key: 'id'
+        }
       }
     });
   },

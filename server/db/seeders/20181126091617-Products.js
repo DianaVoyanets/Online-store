@@ -1,15 +1,23 @@
 'use strict';
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: async (queryInterface, Sequelize) => {
+
+    const brandId = await queryInterface.rawSelect('PhoneBrands', {
+        where: {
+            brandName: 'Samsung',
+        },
+      }, ['id']);
+
       return queryInterface.bulkInsert('Products', [
         {
           image: "Very beautiful image",
-          productName: "Samsung",
+          productName: "Galaxy s6",
           price: 300.5,
           rating: 0,
+          phoneBrandId: brandId,
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         }
       ], {});
   },
