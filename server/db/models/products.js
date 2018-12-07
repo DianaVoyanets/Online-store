@@ -7,8 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     rating: DataTypes.INTEGER
   });
 
-  Products.associate = function(models) {
-      models.Products.belongsTo(models.categoryOfProducts, { as: 'category'});
-  };
+//   Products.associate = function(models) {
+//     models.productsCategories.hasMany(models.PhoneBrands);
+//     models.productsCategories.belongsTo(models.PhoneBrands);
+//   };
+
   return Products;
 };

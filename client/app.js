@@ -1,6 +1,5 @@
 import "./styles/myapp.css";
 import Session  from "models/Session";
-// import User from "models/User";
 
 import { JetApp, plugins } from "webix-jet";
 

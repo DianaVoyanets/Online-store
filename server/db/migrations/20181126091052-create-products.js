@@ -28,15 +28,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      categoryId: {
+      phoneBrandId: {
         type: Sequelize.INTEGER,
-        allowNull: true,
         onDelete: "CASCADE",
+        allowNull: true,
         references: {
-          model: 'categoryOfProducts',
+          model: 'PhoneBrands',
           key: 'id'
         }
-      },
+      }
     });
   },
   down: (queryInterface, Sequelize) => {

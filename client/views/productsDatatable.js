@@ -10,7 +10,7 @@ export default class productsDatatable extends JetView {
             select: true,
             columns:[
                 { id:"image", header:"Image",  width: 260},
-                { id:"productName", header: ["Name",{content:"textFilter"}], width: 260},
+                { id:"value", header: ["Name",{content:"textFilter"}], width: 260},
                 { id:"price", header:"Price", width: 270},
                 { id:"rating", name: 'rating', header:"Rating", width: 270},
                 { header:"Amount",width: 210, template: "<div>{common.counterButton()}</div>"},
