@@ -15,6 +15,12 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
           productsCategoryId: productCategoryId
+        },
+        {
+          brandName: "Iphone",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          productsCategoryId: productCategoryId
         }
       ], {});
   },
