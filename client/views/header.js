@@ -5,7 +5,7 @@ export default  class Header extends JetView {
         return {
             view: "toolbar",
             elements: [
-                {view: "label",label: "Shop"},
+                {view: "label",label: "Varin shop"},
                 {view: "label", template: `<b>${this.app.getService('user').getUser().login} shop</b>`},
                 {view: "button",localId: 'history:button',value: "History",width: 200,click: () => this.show('historyDatatable')},
                 {view: "button",localId: "bag:button",value: "Bag",width: 200,click: () => this.show('productsInBag')},
