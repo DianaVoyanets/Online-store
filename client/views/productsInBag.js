@@ -1,5 +1,5 @@
 import { JetView } from "webix-jet";
-
+import { productsBasket } from "../models/productsBasket";
 
 export default class ProductsInBag extends JetView {
     config() {
@@ -7,22 +7,33 @@ export default class ProductsInBag extends JetView {
             rows: [
                 {
                     view: "datatable",
+                    localId: 'products:basket',
                     columns: [
                         {id: "image",header: "Image",width: 250},
-                        {id: "name",header: "Name",fillspace: true,},
+                        {id: "productName",header: "Name",fillspace: true,},
                         {id: "amount",header: "Amount",width: 250},
                         {id: "price",header: "Price",width: 250},
-                        {id: "sum", header: "Sum",width: 250},
+                        {id: "totalPrice", header: "Sum",width: 250},
                         {id:"trash-icon", header: "",template: "{common.trashIcon()}",width:50},
                     ],
-                    data: [
-                        {id:1, image: "Here will be image", name: "Lenovo K5",amount: 1,price: 380,sum: 380},
-                        {id:2, image: "Here will be image", name: "Lenovo S920",amount: 1,price: 370,sum: 370},
-                    ]
+                    onClick: {
+                        'wxi-trash': (event, id) => {
+                            webix.confirm({
+								text:"Do you still want to remove field?",
+								callback: (confirmed) =>  {
+									if (confirmed) {
+										productsBasket.remove(id);
+										return false;
+									}
+								}
+							});
+                        }
+                    },  
                 },
                 {
                     view: "label", 
-                    label: "Total: 1234",
+                    label: "Total:",
+                    localId: 'total:label',
                     height: 60
                 },
                 {
@@ -40,5 +51,14 @@ export default class ProductsInBag extends JetView {
             ]
          
         }
+    }
+    init() {
+        productsBasket.waitData.then(() => {
+            // const reducer = (accumulator, currentValue) => accumulator + currentValue.totalPrice;
+
+            // console.log(productsBasket.data.pull.reduce(reducer));
+            this.$$('total:label').setValue(`Total:${123}`);
+            this.$$('products:basket').sync(productsBasket);
+        });
     }
 }
