@@ -9,17 +9,17 @@ export default class ProductsInBag extends JetView {
                     view: "datatable",
                     localId: 'products:basket',
                     columns: [
-                        {id: "image",header: "Image",width: 250},
-                        {id: "productName",header: "Name",fillspace: true,},
-                        {id: "amount",header: "Amount",width: 250},
-                        {id: "price",header: "Price",width: 250},
-                        {id: "totalPrice", header: "Sum",width: 250},
-                        {id:"trash-icon", header: "",template: "{common.trashIcon()}",width:50},
+                        {id: "image",header: "Image"},
+                        {id: "productName",header: "Name"},
+                        {id: "amount",header: "Amount"},
+                        {id: "price",header: "Price"},
+                        {id: "totalPrice", header: "Sum"},
+                        {id:"trash-icon", header: "",template: "{common.trashIcon()}"},
                     ],
                     onClick: {
                         'wxi-trash': (event, id) => {
                             webix.confirm({
-								text:"Do you still want to remove field?",
+								text:"Do you still want to remove this product from bag?",
 								callback: (confirmed) =>  {
 									if (confirmed) {
 										productsBasket.remove(id);
@@ -53,12 +53,20 @@ export default class ProductsInBag extends JetView {
         }
     }
     init() {
+        this.refreshTotalProductsPriceLabel();
         productsBasket.waitData.then(() => {
-            // const reducer = (accumulator, currentValue) => accumulator + currentValue.totalPrice;
-
-            // console.log(productsBasket.data.pull.reduce(reducer));
-            this.$$('total:label').setValue(`Total:${123}`);
             this.$$('products:basket').sync(productsBasket);
+        });
+        productsBasket.attachEvent('onAfterAdd',() => this.refreshTotalProductsPriceLabel());
+        productsBasket.attachEvent('onDataUpdate',() => this.refreshTotalProductsPriceLabel());
+    }
+
+    refreshTotalProductsPriceLabel() {
+        productsBasket.waitData.then(() => {
+        let totalProductsPrice = productsBasket.serialize().reduce((total,curent) => {
+                return total + curent.totalPrice
+            },0);
+        this.$$('total:label').setValue(`Total: ${totalProductsPrice}`);
         });
     }
 }

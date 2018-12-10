@@ -7,7 +7,7 @@ export default class MenuView extends JetView {
 				width: 350,
 				data:[
 					{ id:"ClientsInfo",value: "Clients Info"},
-					{ id:"Orders", value:"Orders"},
+					{ id:"historyOrdersDatatable", value:"Orders"},
 					{ id:"AddNewProduct", value:"Add new product"},
 				],
 				ready: function() {

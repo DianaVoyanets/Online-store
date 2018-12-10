@@ -8,10 +8,10 @@ export default class ClientsInfo extends JetView {
             editable:true,
             // TODO editor validation
             columns: [
-                {id: "id", header: "#", width: 200},
-                {id: "login",header: ["Name",{content: "textFilter"}],width: 300, editor:"text"},
-                {id: "email", header: ["Email",{content: "textFilter"}],width: 300, editor:"text"},
-                {id: "createdAt", header: "Created at",width: 300,fillspace: true}
+                {id: "id", header: "#"},
+                {id: "login",header: ["Name",{content: "textFilter"}],editor:"text"},
+                {id: "email", header: ["Email",{content: "textFilter"}],editor:"text",fillspace: true},
+                {id: "createdAt", header: "Created at",fillspace: true}
             ],
         }
     }

@@ -7,8 +7,9 @@ const users = require('../server/controllers/user');
 const products = require('../server/controllers/products');
 const phoneBrand = require('../server/controllers/phoneBrand');
 const productsCategories = require('../server/controllers/productsCategories');
-const tree = require("../server/controllers/tree");
+const tree = require("./controllers/treeData");
 const productsBasket = require("../server/controllers/productsBasket");
+const orders = require("../server/controllers/orders");
 
 app.use(express.static("public"));
 app.use(cors());
@@ -50,6 +51,12 @@ app.put("/server/productsBasket/:productId",productsBasket.updateData);
 app.delete("/server/productsBasket/:productId",productsBasket.removeData);
 app.post("/server/productsBasket",productsBasket.addData);
 app.get("/server/productsBasket",productsBasket.getData);
+
+//orders
+app.put("/server/orders/:orderId",orders.updateData);
+app.delete("/server/orders/:orderId",orders.removeData);
+app.post("/server/orders",orders.addData);
+app.get("/server/orders",orders.getData);
 
 // app.put("/server/product/:productId",products.updateData);
 // app.delete("/server/product/:productId",products.removeData);

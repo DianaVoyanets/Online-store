@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     productName: DataTypes.STRING,
     price: DataTypes.DOUBLE,
     amount: DataTypes.INTEGER,
-    totalPrice: DataTypes.DOUBLE
+    totalPrice: DataTypes.DOUBLE,
+    productId: DataTypes.INTEGER
   }, {});
   productBasket.associate = function(models) {
     // associations can be defined here

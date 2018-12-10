@@ -12,11 +12,11 @@ export default class Tree extends JetView {
                     view: "tree", 
                     width: 300,
                     select: true,
+                    open: true,
                     on: {
                         "onAfterSelect": (id) => {
-                            // TODO
                             let selectedId = this.getRoot().queryView({view: 'tree'}).getItem(id)._id;
-                            this.app.callEvent('onAfterTreeItemSelect', [selectedId])
+                            this.show(`productsDatatable?id=${selectedId}`);
                         }
                     }
                 }

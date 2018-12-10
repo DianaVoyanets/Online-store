@@ -7,10 +7,10 @@ module.exports = {
         image: "Very beautiful image1",
         productName: "Galaxy s6",
         price: 300,
-        amount: 3,
         totalPrice: 300 * 3, 
         createdAt: new Date(),
         updatedAt: new Date(),
+        productId: 1
       },
       ], {});
   },

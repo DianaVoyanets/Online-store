@@ -34,14 +34,14 @@ export default class AddNewProduct extends JetView {
                     cols: [
                         {view: "spacer",width: 350},
                         // {view:"uploader",value:"Add picture"},
-                        {view: "combo", labelWidth: 100,label: "Phone brand",options:{body: {template: '#value#',data: PhoneBrands}}},
+                        {view: "combo", width: 400,labelWidth: 100,label: "Phone brand",options:{body: {template: '#value#',data: PhoneBrands}}},
                         {view: "spacer",width: 350}
                     ]
                 },
                 {
                     cols: [
-                        {view: "spacer",width: 850},
-                        {view: "button",value: "Add new product",width: 300, click: () => this.addNewProduct()},
+                        {view: "spacer",width: 460},
+                        {view: "button",value: "Add new product",width: 200, click: () => this.addNewProduct()},
                         {view: "spacer"},
                     ]
                 },
@@ -50,9 +50,6 @@ export default class AddNewProduct extends JetView {
         }
     }
 
-    init() {
-        console.log(PhoneBrands);
-    }
 
     addNewProduct() {
         let itemFromFormInput = this.getRoot().getValues();

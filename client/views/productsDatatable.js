@@ -2,7 +2,7 @@ import {JetView} from "webix-jet";
 import "../helpers/activeDatatable";
 import productInformationPopup from "views/productInformationPopup";
 import {Products} from "../models/ProductsCollection";
-import { productsBasket } from "../models/productsBasket";
+import {productsBasket} from "../models/productsBasket";
 
 export default class productsDatatable extends JetView {
     config() {
@@ -10,30 +10,29 @@ export default class productsDatatable extends JetView {
             view: "datatableWithCounter",
             select: true,
             columns:[
-                { id:"image", header:"Image",  width: 260},
-                { id:"productName", header: ["Name",{content:"textFilter"}], width: 260},
-                { id:"price", header:"Price", width: 270},
-                { id:"rating", name: 'rating', header:"Rating", width: 270},
+                { id:"image", header:"Image"},
+                { id:"productName", header: ["Name",{content:"textFilter"}]},
+                { id:"price", header:"Price"},
+                { id:"rating", name: 'rating', header:"Rating"},
                 { header:"Amount",width: 210, template: "<div>{common.counterButton()}</div>"},
-                { header: "Buy",template: '<span class="mdi mdi-cart basket"></span>',fillspace:true}
+                { header: "Buy",template: '<span class="mdi mdi-cart basket"></span>'}
             ],
             onClick: {
                 'mdi-cart': (e, id) => {
-                    let objToBasket = Products.getItem(id.row);
-                    let testObj = {image: objToBasket.image, productName: objToBasket.productName, price: objToBasket.price, amount: 1,totalPrice: 1 * objToBasket.price }
-                    productsBasket.add(testObj);
+                    let addToBasketProduct = Products.getItem(id.row);
+                    this.saveProductInBasket(addToBasketProduct);
                 },   
             },
             on: {
                 onItemDblClick: (selectedItem) => {
-                    const item = this._getProductsDatatable().getItem(selectedItem.row);
+                    const item = this._$getProductsDatatable().getItem(selectedItem.row);
                     this.informationPopup.show({
-                        getDatatable: this._getProductsDatatable(),
+                        getDatatable: this._$getProductsDatatable(),
                         row: item
                     }) 
                 }
             },
-            activeContent:{
+            activeContent: {
 				counterButton:{
 					view:"counter",
 					value: 0,
@@ -45,14 +44,36 @@ export default class productsDatatable extends JetView {
 
     init() {
         this.informationPopup = this.ui(productInformationPopup);
-        this.on(this.app,'onAfterTreeItemSelect', (selectedId) => {
-            this.getRoot().clearAll();
-            this.getRoot().parse(Products.getItem(selectedId));
-        });
-        this.on(this.app,'datatableUpdate', () => this.getRoot().refresh());
+        console.log(productsBasket);
+        this.on(this.app,'datatableUpdate', () => this._$getProductsDatatable().refresh());
     }
 
-    _getProductsDatatable() {
+    _$getProductsDatatable() {
         return this.getRoot();
+    }
+
+    saveProductInBasket(addedProduct) {
+        let checkExistsProductInBag = productsBasket.find((data) => data.productId === addedProduct.id);
+        if(checkExistsProductInBag.length > 0) {
+           let productInBagId = checkExistsProductInBag[0].id; 
+           let updatedProduct = productsBasket.getItem(productInBagId);
+           updatedProduct.amount++;
+           updatedProduct.totalPrice += updatedProduct.price;
+           productsBasket.updateItem(productInBagId,updatedProduct);
+        } else {
+            addedProduct.productId = addedProduct.id;
+            addedProduct.amount = 1;
+            addedProduct.totalPrice = addedProduct.price;
+            productsBasket.add(addedProduct);
+        }
+    }
+
+    urlChange() {
+        let selectedId = this.getParam('id', true);
+        if(!selectedId) return;
+        Products.waitData.then(() => {
+            this._$getProductsDatatable().clearAll();
+            this._$getProductsDatatable().parse(Products.getItem(selectedId));
+        });
     }
 }
